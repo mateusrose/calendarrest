@@ -8,7 +8,40 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Half extends PanacheEntity {
     private String name;
-    public boolean occupied;
+    private boolean occupied;
+    private int number;
     @ManyToOne
-    public Day day;
+    private Day day;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
 }
