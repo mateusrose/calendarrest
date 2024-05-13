@@ -14,6 +14,8 @@ public class Half {
     @ManyToOne
     private Day day;
     private boolean occupied;
+    private String barber = "none";
+    private String client = "none";
 
     public void setup(int i){
         this.halfNumber = i;
@@ -50,5 +52,29 @@ public class Half {
 
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getBarber() {
+        return barber;
+    }
+
+    public void setBarber(String barber) {
+        this.barber = barber;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
     }
 }

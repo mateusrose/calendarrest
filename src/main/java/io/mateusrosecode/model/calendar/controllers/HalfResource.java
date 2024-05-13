@@ -40,7 +40,6 @@ public class HalfResource {
     //make a new one where you add a string that is the name of one of the barbers
     @PUT
     @Path("{year}/{month}/{day}/{hour}")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response updateHalfByExactDate(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, HalfDTO dto) {
@@ -49,6 +48,25 @@ public class HalfResource {
         halfRepo.persist(half);
         return Response.ok().build();
     }
-
+    @PUT
+    @Path("{year}/{month}/{day}/{hour}/{barber}/{client}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response updateHalfByExactDateWithClientAndBarber(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, @PathParam("barber") String barber, @PathParam("client") String client, HalfDTO dto) {
+        Half half = halfRepo.getHalfByExactDate(year, month, day, hour);
+        DTOToHalf.convert(dto, half, true, barber, client);
+        halfRepo.persist(half);
+        return Response.ok().build();
+    }
+    @PUT
+    @Path("{year}/{month}/{day}/{hour}/reset")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response updateHalfReset(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, HalfDTO dto) {
+        Half half = halfRepo.getHalfByExactDate(year, month, day, hour);
+        DTOToHalf.convert(dto, half,false, "none", "none");
+        halfRepo.persist(half);
+        return Response.ok().build();
+    }
 
 }

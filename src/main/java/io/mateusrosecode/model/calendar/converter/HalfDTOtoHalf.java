@@ -16,4 +16,11 @@ public class HalfDTOtoHalf {
         //add more if needed
         return half;
     }
+    public Half convert(HalfDTO dto, Half half, boolean occupied, String barber, String client) {
+        half.setOccupied(occupied);
+        half.setBarber(barber);
+        half.setClient(client);
+        //add more if needed
+        return half;
+    }
 }

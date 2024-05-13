@@ -9,11 +9,13 @@ public class HalfDTO {
     private String monthName;
     private int month;
     private int year;
+    private String barber;
+    private String client;
 
     public HalfDTO() {
     }
 
-    public HalfDTO(double hour, int halfNumber, boolean occupied, String weekDay, String monthName, int monthDay, int month, int year) {
+    public HalfDTO(double hour, int halfNumber, boolean occupied, String weekDay, String monthName, int monthDay, int month, int year, String barber, String client) {
         this.hour = hour;
         this.halfNumber = halfNumber;
         this.occupied = occupied;
@@ -22,6 +24,24 @@ public class HalfDTO {
         this.monthDay = monthDay;
         this.month = month;
         this.year = year;
+        this.barber = barber;
+        this.client = client;
+    }
+
+    public String getBarber() {
+        return barber;
+    }
+
+    public void setBarber(String barber) {
+        this.barber = barber;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
     }
 
     public double getHour() {

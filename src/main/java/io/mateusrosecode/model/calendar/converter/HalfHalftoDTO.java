@@ -9,7 +9,7 @@ public class HalfHalftoDTO {
     HalfDTO dto;
 
     public HalfDTO convert(Half half) {
-        dto = new HalfDTO(half.getHour(), half.getHalfNumber(), half.isOccupied(), half.getDay().getName(),half.getDay().getMonth().getName(),half.getDay().getMonthDay(),half.getDay().getMonth().getMonthNumber(), half.getDay().getMonth().getYear().getYear());
+        dto = new HalfDTO(half.getHour(), half.getHalfNumber(), half.isOccupied(), half.getDay().getName(),half.getDay().getMonth().getName(),half.getDay().getMonthDay(),half.getDay().getMonth().getMonthNumber(), half.getDay().getMonth().getYear().getYear(), half.getBarber(), half.getClient());
         return dto;
     }
 }
