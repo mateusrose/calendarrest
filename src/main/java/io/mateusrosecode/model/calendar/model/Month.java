@@ -91,4 +91,8 @@ public class Month {
     public List<Day> getDays() {
         return days;
     }
+
+    public int getMonthNumber() {
+        return monthNumber;
+    }
 }

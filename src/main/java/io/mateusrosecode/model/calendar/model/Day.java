@@ -2,6 +2,9 @@ package io.mateusrosecode.model.calendar.model;
 
 import jakarta.persistence.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Entity
 @Table(name = "day")
 public class Day {
@@ -14,6 +17,9 @@ public class Day {
     private int monthDay;
     @ManyToOne
     private Month month;
+
+    @OneToMany(mappedBy = "day", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Half> halves = new LinkedList<>();
 
     public void setup(int i){
       monthDay = i;
@@ -60,5 +66,9 @@ public class Day {
 
     public void setMonth(Month month) {
         this.month = month;
+    }
+
+    public List<Half> getHalves() {
+        return halves;
     }
 }

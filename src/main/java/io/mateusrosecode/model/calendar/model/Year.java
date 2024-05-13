@@ -6,14 +6,16 @@ import jakarta.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Represents a calendar year.
+ * This class is responsible for managing and storing information related to a specific year.
+ */
 @Entity
 @Table(name = "year")
 public class Year {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private int year;
     @OneToMany(mappedBy = "year", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Month> months = new LinkedList<>();

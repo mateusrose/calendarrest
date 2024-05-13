@@ -1,9 +1,11 @@
 package io.mateusrosecode.model;
 
 import io.mateusrosecode.model.calendar.model.Day;
+import io.mateusrosecode.model.calendar.model.Half;
 import io.mateusrosecode.model.calendar.model.Month;
 import io.mateusrosecode.model.calendar.model.Year;
 import io.mateusrosecode.model.calendar.repo.DayRepository;
+import io.mateusrosecode.model.calendar.repo.HalfRepository;
 import io.mateusrosecode.model.calendar.repo.MonthRepository;
 import io.mateusrosecode.model.calendar.repo.YearRepository;
 import io.quarkus.runtime.StartupEvent;
@@ -12,65 +14,22 @@ import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.time.YearMonth;
+
 @ApplicationScoped
 public class DataBaseInit {
     @Inject
     YearRepository yearRepo;
     @Inject
     MonthRepository monthRepo;
-
     @Inject
     DayRepository dayRepo;
+    @Inject
+    HalfRepository halfRepo;
 
-
-    /*
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataBaseInit.class);
-
-
-    @PostConstruct
-    @Transactional
-    public void loadData(){
-        int yearNumber = 2024; // Set the year you want to populate
-        Year year = new Year();
-        year.setYear(yearNumber);
-        year.persist();
-        LOGGER.info("Year {} created", yearNumber);
-
-        for (int monthNumber = 1; monthNumber <= 12; monthNumber++) {
-            Month month = new Month();
-            month.setNumber(monthNumber);
-            month.setYear(year);
-            year.getMonths().add(month);
-            month.persist();
-           LOGGER.info("Month {} created for year {}", monthNumber, yearNumber);
-
-            int numberOfDaysInMonth = YearMonth.of(yearNumber, monthNumber).lengthOfMonth();
-
-            for (int dayNumber = 1; dayNumber <= numberOfDaysInMonth; dayNumber++) {
-                Day day = new Day();
-                day.setNumberDay(dayNumber);
-                day.setWeekDay(LocalDate.of(yearNumber, monthNumber, dayNumber).getDayOfWeek().name());
-                day.setMonth(month);
-                month.getDays().add(day);
-                day.persist();
-                LOGGER.info("Day {} created for month {} of the year {}", dayNumber,monthNumber,yearNumber);
-                for(int halfNumber = 1; halfNumber <= 20; halfNumber++){
-                    io.mateusrosecode.model.calendar.Half half = new io.mateusrosecode.model.calendar.Half();
-                    half.setOccupied(false);
-                    half.setNumber(halfNumber);
-                    half.setDay(day);
-                    day.getHalfs().add(half);
-                    half.persist();
-                    LOGGER.info("Half {} created for day {} of month {} of the year {}", halfNumber, dayNumber, monthNumber, yearNumber);
-                }
-            }
-        }
-    }*/
     @Transactional
     public void onStart(@Observes StartupEvent ev){
         if(yearRepo.countYears() == 0){
-            addYear();
-            addYear();
             addYear();
         }
     }
@@ -97,12 +56,28 @@ public class DataBaseInit {
     }
 
     public void addDays(Month month){
-        for(int i = 1; i <= 28; i++){
+
+        int year = month.getYear().getYear();
+        int monthNumber = month.getMonthNumber();
+        YearMonth yearMonth = YearMonth.of(year, monthNumber);
+        int daysInMonth = yearMonth.lengthOfMonth();
+
+        for(int i = 1; i <= daysInMonth; i++){
             Day day = new Day();
             day.setup(i);
             day.setMonth(month);
             month.getDays().add(day);
+            addHalfs(day);
             dayRepo.persist(day);
+        }
+    }
+    public void addHalfs(Day day){
+        for(int i = 1; i <= 20; i++){
+            Half half = new Half();
+            half.setup(i);
+            half.setDay(day);
+            day.getHalves().add(half);
+            halfRepo.persist(half);
         }
     }
 
