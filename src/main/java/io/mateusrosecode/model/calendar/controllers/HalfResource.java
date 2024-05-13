@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/api/half")
 @RolesAllowed("admin")
 public class HalfResource {
-
+    //add services
     @Inject
     HalfRepository halfRepo;
     @Inject
@@ -37,7 +37,9 @@ public class HalfResource {
         return halfDTO.convert(halfRepo.getHalfByExactDate(year, month, day, hour));
     }
 
-    //make a new one where you add a string that is the name of one of the barbers
+
+
+    //CHANGES VIA JSON, currently bugged
     @PUT
     @Path("{year}/{month}/{day}/{hour}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,9 +54,9 @@ public class HalfResource {
     @Path("{year}/{month}/{day}/{hour}/{barber}/{client}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response updateHalfByExactDateWithClientAndBarber(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, @PathParam("barber") String barber, @PathParam("client") String client, HalfDTO dto) {
+    public Response updateHalfByExactDateWithClientAndBarber(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, @PathParam("barber") String barber, @PathParam("client") String client) {
         Half half = halfRepo.getHalfByExactDate(year, month, day, hour);
-        DTOToHalf.convert(dto, half, true, barber, client);
+        DTOToHalf.convert(half, true, barber, client);
         halfRepo.persist(half);
         return Response.ok().build();
     }
@@ -62,9 +64,9 @@ public class HalfResource {
     @Path("{year}/{month}/{day}/{hour}/reset")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response updateHalfReset(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, HalfDTO dto) {
+    public Response updateHalfReset(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour) {
         Half half = halfRepo.getHalfByExactDate(year, month, day, hour);
-        DTOToHalf.convert(dto, half,false, "none", "none");
+        DTOToHalf.convert(half,false, "none", "none");
         halfRepo.persist(half);
         return Response.ok().build();
     }

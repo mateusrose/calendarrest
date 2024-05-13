@@ -35,18 +35,18 @@ public class DataBaseInit {
     }
     @Transactional
     public void onStart(@Observes StartupEvent ev){
-        loadUsers();
         if(yearRepo.countYears() == 0){
+            loadUsers();
             addYear();
         }
     }
     @Transactional
-    public long addYear(){
+    public void addYear(){
         Year year = new Year();
         year.setYear(2024 + yearRepo.countYears() );
         addMonths(year);
         yearRepo.persist(year);
-        return year.getYear();
+
     }
 
     public void addMonths(Year year){

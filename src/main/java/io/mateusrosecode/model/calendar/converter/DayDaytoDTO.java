@@ -21,7 +21,7 @@ public class DayDaytoDTO {
 
         dto.setReservations((int)dayRepo.getOccupiedSpots(day));
         dto.setFreeSpot((int)dayRepo.getFreeSpots(day));
-
+        dto.setCanWork(day.isCanWork());
         dto.setMonth(day.getMonth().getMonthNumber());
         dto.setMonthName(day.getMonth().getName());
         dto.setYear(day.getMonth().getYear().getYear());

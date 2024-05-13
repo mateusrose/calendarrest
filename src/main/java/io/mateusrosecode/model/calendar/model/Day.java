@@ -15,6 +15,7 @@ public class Day {
     private String name;
     private int weekday;
     private int monthDay;
+    private boolean canWork = true;
     @ManyToOne
     private Month month;
 
@@ -34,6 +35,14 @@ public class Day {
           case 6 -> "saturday";
           default -> "error";
       };
+    }
+
+    public boolean isCanWork() {
+        return canWork;
+    }
+
+    public void setCanWork(boolean canWork) {
+        this.canWork = canWork;
     }
 
     public String getName() {

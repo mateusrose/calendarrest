@@ -9,12 +9,21 @@ public class DayDTO {
     private int month;
     private String monthName;
     private int year;
+    private boolean canWork;
 
 
     public DayDTO() {
     }
 
-    public DayDTO(String name, int weekDay, int monthDay, int reservations, int freeSpot, int month, String monthName, int year) {
+    public boolean isCanWork() {
+        return canWork;
+    }
+
+    public void setCanWork(boolean canWork) {
+        this.canWork = canWork;
+    }
+
+    public DayDTO(String name, int weekDay, int monthDay, int reservations, int freeSpot, int month, String monthName, int year, boolean canWork) {
         this.name = name;
         this.weekDay = weekDay;
         this.monthDay = monthDay;
@@ -23,6 +32,7 @@ public class DayDTO {
         this.month = month;
         this.monthName = monthName;
         this.year = year;
+        this.canWork = canWork;
     }
 
     public String getName() {
