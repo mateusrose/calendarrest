@@ -1,5 +1,6 @@
 package io.mateusrosecode.model;
 
+import io.mateusrosecode.model.auth.User;
 import io.mateusrosecode.model.calendar.model.Day;
 import io.mateusrosecode.model.calendar.model.Half;
 import io.mateusrosecode.model.calendar.model.Month;
@@ -27,8 +28,14 @@ public class DataBaseInit {
     @Inject
     HalfRepository halfRepo;
 
+    void loadUsers(){
+        User.deleteAll();
+        User.add("admin", "admin", "admin");
+
+    }
     @Transactional
     public void onStart(@Observes StartupEvent ev){
+        loadUsers();
         if(yearRepo.countYears() == 0){
             addYear();
         }
@@ -56,13 +63,12 @@ public class DataBaseInit {
     }
 
     public void addDays(Month month){
-
         int year = month.getYear().getYear();
         int monthNumber = month.getMonthNumber();
         YearMonth yearMonth = YearMonth.of(year, monthNumber);
         int daysInMonth = yearMonth.lengthOfMonth();
 
-        for(int i = 1; i <= daysInMonth; i++){
+        for(int i = 1; i <= daysInMonth/4; i++){
             Day day = new Day();
             day.setup(i);
             day.setMonth(month);
@@ -72,7 +78,7 @@ public class DataBaseInit {
         }
     }
     public void addHalfs(Day day){
-        for(int i = 1; i <= 20; i++){
+        for(int i = 1; i <= 1; i++){
             Half half = new Half();
             half.setup(i);
             half.setDay(day);

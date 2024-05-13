@@ -44,7 +44,23 @@ public class Day {
         this.name = name;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public int getWeekday() {
+        return weekday;
+    }
+
+    public void setHalves(List<Half> halves) {
+        this.halves = halves;
+    }
+
+    public int getWeekDay() {
         return weekday;
     }
 

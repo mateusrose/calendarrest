@@ -1,5 +1,6 @@
 package io.mateusrosecode.model.auth;
 
+import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
@@ -21,6 +22,12 @@ public class User extends PanacheEntity {
     @Roles
     public String role;
 
-    //make method add user according to https://quarkus.io/guides/security-getting-started-tutorial
+    public static void add(String username, String password, String role) {
+        User user = new User();
+        user.username = username;
+        user.password = BcryptUtil.bcryptHash(password);
+        user.role = role;
+        user.persist();
+    }
 
 }
