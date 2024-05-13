@@ -1,21 +1,29 @@
 package io.mateusrosecode.model;
 
-import io.mateusrosecode.model.calendar.Day;
-import io.mateusrosecode.model.calendar.Month;
-import io.mateusrosecode.model.calendar.Year;
-import jakarta.annotation.PostConstruct;
+import io.mateusrosecode.model.calendar.model.Day;
+import io.mateusrosecode.model.calendar.model.Month;
+import io.mateusrosecode.model.calendar.model.Year;
+import io.mateusrosecode.model.calendar.repo.DayRepository;
+import io.mateusrosecode.model.calendar.repo.MonthRepository;
+import io.mateusrosecode.model.calendar.repo.YearRepository;
+import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.time.YearMonth;
-import java.time.LocalDate;
 
 @ApplicationScoped
 public class DataBaseInit {
+    @Inject
+    YearRepository yearRepo;
+    @Inject
+    MonthRepository monthRepo;
+
+    @Inject
+    DayRepository dayRepo;
+
+
+    /*
     private static final Logger LOGGER = LoggerFactory.getLogger(DataBaseInit.class);
 
 
@@ -57,5 +65,46 @@ public class DataBaseInit {
                 }
             }
         }
+    }*/
+    @Transactional
+    public void onStart(@Observes StartupEvent ev){
+        if(yearRepo.countYears() == 0){
+            addYear();
+            addYear();
+            addYear();
+        }
     }
+    @Transactional
+    public long addYear(){
+        Year year = new Year();
+        year.setYear(2024 + yearRepo.countYears() );
+        addMonths(year);
+        yearRepo.persist(year);
+        return year.getYear();
+    }
+
+    public void addMonths(Year year){
+        for(int i = 1; i <= 12; i++){
+            Month month = new Month();
+            month.setName(i);
+            month.setYear(year);
+            year.getMonths().add(month);
+            addDays(month);
+            monthRepo.persist(month);
+
+        }
+
+    }
+
+    public void addDays(Month month){
+        for(int i = 1; i <= 28; i++){
+            Day day = new Day();
+            day.setup(i);
+            day.setMonth(month);
+            month.getDays().add(day);
+            dayRepo.persist(day);
+        }
+    }
+
+
 }
