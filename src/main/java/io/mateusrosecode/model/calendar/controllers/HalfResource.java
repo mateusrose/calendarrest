@@ -52,7 +52,6 @@ public class HalfResource {
     }
     @PUT
     @Path("{year}/{month}/{day}/{hour}/{barber}/{client}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response updateHalfByExactDateWithClientAndBarber(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour, @PathParam("barber") String barber, @PathParam("client") String client) {
         Half half = halfRepo.getHalfByExactDate(year, month, day, hour);
@@ -62,7 +61,6 @@ public class HalfResource {
     }
     @PUT
     @Path("{year}/{month}/{day}/{hour}/reset")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response updateHalfReset(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("hour") int hour) {
         Half half = halfRepo.getHalfByExactDate(year, month, day, hour);

@@ -40,11 +40,11 @@ public class DayResource {
     }
     @PUT
     @Path("/{year}/{month}/{day}/{canWork}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response updateDayCanWork(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("canWork") boolean canWork) {
         Day dayObj = dayRepo.getDayByExactDate(year, month, day);
-        //dayDTO.convert(dayDto,dayObj);
+        dayDTO.convert(dayObj, canWork);
+
         dayRepo.persist(dayObj);
         return Response.ok(dayObj.isCanWork()).build();
     }

@@ -11,8 +11,8 @@ public class DayDTOtoDay {
     @Inject
     DayRepository dayRepo;
 
-    public Day convert(DayDTO dto, Day day) {
-        day.setCanWork(dto.isCanWork());
+    public Day convert(Day day, boolean canWork) {
+        day.setCanWork(canWork);
         return day;
     }
 
