@@ -1,27 +1,33 @@
 package io.mateusrosecode.model.calendar.DTOs;
 
+/**
+ * The DayDTO class represents a Data Transfer Object for the Day entity.
+ * It is used to transfer data between processes or components, in this case, related to a Day.
+ */
 public class DayDTO {
-    private String name;
-    private int weekDay;
-    private int monthDay;
-    private int reservations;
-    private int freeSpot;
-    private int month;
-    private String monthName;
-    private int year;
-    private boolean canWork;
 
+    // The name of the day
+    private String name;
+    // The weekday number
+    private int weekDay;
+    // The day of the month
+    private int monthDay;
+    // The number of reservations for the day
+    private int reservations;
+    // The number of free spots for the day
+    private int freeSpot;
+    // The month number
+    private int month;
+    // The name of the month
+    private String monthName;
+    // The year
+    private int year;
+    // A boolean indicating if work is possible on the day
+    private boolean canWork;
 
     public DayDTO() {
     }
 
-    public boolean isCanWork() {
-        return canWork;
-    }
-
-    public void setCanWork(boolean canWork) {
-        this.canWork = canWork;
-    }
 
     public DayDTO(String name, int weekDay, int monthDay, int reservations, int freeSpot, int month, String monthName, int year, boolean canWork) {
         this.name = name;
@@ -32,6 +38,14 @@ public class DayDTO {
         this.month = month;
         this.monthName = monthName;
         this.year = year;
+        this.canWork = canWork;
+    }
+
+    public boolean isCanWork() {
+        return canWork;
+    }
+
+    public void setCanWork(boolean canWork) {
         this.canWork = canWork;
     }
 

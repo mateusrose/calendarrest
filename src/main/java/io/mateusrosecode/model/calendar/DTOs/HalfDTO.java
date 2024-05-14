@@ -1,15 +1,30 @@
 package io.mateusrosecode.model.calendar.DTOs;
 
+/**
+ * The HalfDTO class represents a Data Transfer Object for the Half entity.
+ * It is used to transfer data between processes or components, in this case, related to a Half.
+ */
 public class HalfDTO {
+
+    // The hour of the half
     private double hour;
+    // The half number
     private int halfNumber;
+    // A boolean indicating if the half is occupied
     private boolean occupied;
+    // The weekday name
     private String weekDay;
+    // The day of the month
     private int monthDay;
+    // The name of the month
     private String monthName;
+    // The month number
     private int month;
+    // The year
     private int year;
+    // The barber's name
     private String barber;
+    // The client's name
     private String client;
 
     public HalfDTO() {
