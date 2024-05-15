@@ -1,6 +1,15 @@
 # barbercalendar
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+
+## Description & Tech Used
+
+This project is a simple calendar application for barbers. It allows barbers to create appointments and manage their schedule which are stored in a database. 
+
+When launched, it creates a database in memory and populates it with some initial data that can be changed through HTTP resquests. (See the API documentation in the Controller Classes)
+
+REST API that uses Quarkus, the Supersonic Subatomic Java Framework and stores data in a POSTGRESQL database.
+
+Project subject to change
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
@@ -10,6 +19,7 @@ You can run your application in dev mode that enables live coding using:
 ```shell script
 ./mvnw compile quarkus:dev
 ```
+You need to have a PostgreSQL database running on your machine. You can change the database connection settings in the `application.properties` file.
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
